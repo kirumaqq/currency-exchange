@@ -2,7 +2,6 @@ package io.naoki.currencyspring.currency;
 
 import io.naoki.currencyspring.DatabaseCleanupExecutionListener;
 import io.naoki.currencyspring.TestCurrencySpringApplication;
-import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,9 +16,6 @@ import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
         mergeMode = TestExecutionListeners.MergeMode.MERGE_WITH_DEFAULTS)
 @SpringBootTest(classes = TestCurrencySpringApplication.class)
 class CurrencyRepositoryIT {
-
-    @Autowired
-    Flyway flyway;
 
     @Autowired
     CurrencyRepository currencyRepository;
