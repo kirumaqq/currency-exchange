@@ -15,6 +15,6 @@ public class DatabaseCleanupExecutionListener implements TestExecutionListener {
     @Override
     public void afterTestExecution(TestContext testContext) throws Exception {
         Flyway flyway = testContext.getApplicationContext().getBean(Flyway.class);
-        flyway.migrate();
+        flyway.clean();
     }
 }
