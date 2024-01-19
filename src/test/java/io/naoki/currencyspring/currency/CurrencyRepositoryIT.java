@@ -21,7 +21,7 @@ class CurrencyRepositoryIT {
     CurrencyRepository currencyRepository;
 
     @Test
-    void findAll_DoesNotThrow() {
+    void findAll_DoesNotThrow_ListSizeIsNotZero() {
         Currency currency = new Currency(null, "TST", "Test", "T");
         currencyRepository.save(currency);
         List<Currency> currencyList = assertDoesNotThrow(currencyRepository::findAll);
