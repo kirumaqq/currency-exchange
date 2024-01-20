@@ -1,8 +1,10 @@
 package io.naoki.currencyspring.exchangerate;
 
 import io.naoki.currencyspring.TestCurrencySpringApplication;
-import io.naoki.currencyspring.currency.Currency;
-import io.naoki.currencyspring.currency.CurrencyRepository;
+import io.naoki.currencyspring.entity.Currency;
+import io.naoki.currencyspring.entity.ExchangeRate;
+import io.naoki.currencyspring.repository.CurrencyRepository;
+import io.naoki.currencyspring.repository.ExchangeRateRepository;
 import org.assertj.core.data.Offset;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -1,4 +1,4 @@
-package io.naoki.currencyspring.currency;
+package io.naoki.currencyspring.dto.currency;
 
 public record CurrencyResponseDto(
         Integer id,

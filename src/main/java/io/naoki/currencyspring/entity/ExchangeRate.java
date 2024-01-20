@@ -1,6 +1,5 @@
-package io.naoki.currencyspring.exchangerate;
+package io.naoki.currencyspring.entity;
 
-import io.naoki.currencyspring.currency.Currency;
 import org.springframework.data.relational.core.mapping.Table;
 
 import java.math.BigDecimal;

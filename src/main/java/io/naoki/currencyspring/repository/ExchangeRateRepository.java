@@ -1,5 +1,7 @@
-package io.naoki.currencyspring.exchangerate;
+package io.naoki.currencyspring.repository;
 
+import io.naoki.currencyspring.entity.ExchangeRate;
+import io.naoki.currencyspring.mapper.ExchangeRateRowMapper;
 import org.springframework.data.jdbc.repository.query.Query;
 import org.springframework.data.repository.Repository;
 

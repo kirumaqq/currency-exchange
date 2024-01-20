@@ -1,4 +1,4 @@
-package io.naoki.currencyspring.exchangerate;
+package io.naoki.currencyspring.dto.exchangerate;
 
 import java.math.BigDecimal;
 

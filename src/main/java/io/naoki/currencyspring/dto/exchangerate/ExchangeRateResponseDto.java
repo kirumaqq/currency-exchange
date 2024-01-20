@@ -1,6 +1,6 @@
-package io.naoki.currencyspring.exchangerate;
+package io.naoki.currencyspring.dto.exchangerate;
 
-import io.naoki.currencyspring.currency.CurrencyResponseDto;
+import io.naoki.currencyspring.dto.currency.CurrencyResponseDto;
 
 import java.math.BigDecimal;
 import java.math.RoundingMode;

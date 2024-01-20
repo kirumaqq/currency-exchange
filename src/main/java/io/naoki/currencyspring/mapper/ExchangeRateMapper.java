@@ -1,6 +1,7 @@
-package io.naoki.currencyspring.exchangerate;
+package io.naoki.currencyspring.mapper;
 
-import io.naoki.currencyspring.currency.CurrencyMapper;
+import io.naoki.currencyspring.dto.exchangerate.ExchangeRateResponseDto;
+import io.naoki.currencyspring.entity.ExchangeRate;
 import org.mapstruct.Mapper;
 import org.mapstruct.MappingConstants;
 

@@ -1,4 +1,7 @@
-package io.naoki.currencyspring.currency;
+package io.naoki.currencyspring.service;
+
+import io.naoki.currencyspring.dto.currency.CreateCurrencyDto;
+import io.naoki.currencyspring.dto.currency.CurrencyResponseDto;
 
 import java.util.List;
 

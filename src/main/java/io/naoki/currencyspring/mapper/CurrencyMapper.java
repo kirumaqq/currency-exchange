@@ -1,5 +1,8 @@
-package io.naoki.currencyspring.currency;
+package io.naoki.currencyspring.mapper;
 
+import io.naoki.currencyspring.dto.currency.CreateCurrencyDto;
+import io.naoki.currencyspring.dto.currency.CurrencyResponseDto;
+import io.naoki.currencyspring.entity.Currency;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingConstants;

@@ -1,6 +1,8 @@
 package io.naoki.currencyspring.currency;
 
 import io.naoki.currencyspring.TestCurrencySpringApplication;
+import io.naoki.currencyspring.entity.Currency;
+import io.naoki.currencyspring.repository.CurrencyRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

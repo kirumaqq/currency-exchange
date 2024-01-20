@@ -1,4 +1,4 @@
-package io.naoki.currencyspring.exchangerate;
+package io.naoki.currencyspring.service.impl;
 
 public class ExchangeRateNotFoundException extends RuntimeException {
 }
