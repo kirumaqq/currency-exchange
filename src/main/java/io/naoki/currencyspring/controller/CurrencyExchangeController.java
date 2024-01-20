@@ -1,12 +1,12 @@
-package io.naoki.currencyspring;
+package io.naoki.currencyspring.controller;
 
-import io.naoki.currencyspring.currency.CreateCurrencyDto;
-import io.naoki.currencyspring.currency.CurrencyPair;
-import io.naoki.currencyspring.currency.CurrencyResponseDto;
-import io.naoki.currencyspring.currency.CurrencyService;
-import io.naoki.currencyspring.exchangerate.CreateExchangeRateDto;
-import io.naoki.currencyspring.exchangerate.ExchangeRateResponseDto;
-import io.naoki.currencyspring.exchangerate.ExchangeRateService;
+import io.naoki.currencyspring.dto.currency.CreateCurrencyDto;
+import io.naoki.currencyspring.dto.currency.CurrencyPair;
+import io.naoki.currencyspring.dto.currency.CurrencyResponseDto;
+import io.naoki.currencyspring.dto.exchangerate.CreateExchangeRateDto;
+import io.naoki.currencyspring.dto.exchangerate.ExchangeRateResponseDto;
+import io.naoki.currencyspring.service.CurrencyService;
+import io.naoki.currencyspring.service.ExchangeRateService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

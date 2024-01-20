@@ -1,4 +1,4 @@
-package io.naoki.currencyspring.currency;
+package io.naoki.currencyspring.entity;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.relational.core.mapping.Table;

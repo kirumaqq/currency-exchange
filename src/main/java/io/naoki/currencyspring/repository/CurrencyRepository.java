@@ -1,5 +1,6 @@
-package io.naoki.currencyspring.currency;
+package io.naoki.currencyspring.repository;
 
+import io.naoki.currencyspring.entity.Currency;
 import org.springframework.data.repository.Repository;
 
 import java.util.List;

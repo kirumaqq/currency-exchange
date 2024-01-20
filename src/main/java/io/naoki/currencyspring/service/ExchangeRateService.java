@@ -1,6 +1,8 @@
-package io.naoki.currencyspring.exchangerate;
+package io.naoki.currencyspring.service;
 
-import io.naoki.currencyspring.currency.CurrencyPair;
+import io.naoki.currencyspring.dto.currency.CurrencyPair;
+import io.naoki.currencyspring.dto.exchangerate.CreateExchangeRateDto;
+import io.naoki.currencyspring.dto.exchangerate.ExchangeRateResponseDto;
 
 import java.math.BigDecimal;
 import java.util.List;

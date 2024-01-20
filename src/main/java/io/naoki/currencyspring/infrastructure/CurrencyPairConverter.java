@@ -1,5 +1,6 @@
-package io.naoki.currencyspring.currency;
+package io.naoki.currencyspring.infrastructure;
 
+import io.naoki.currencyspring.dto.currency.CurrencyPair;
 import org.springframework.core.convert.converter.Converter;
 import org.springframework.stereotype.Component;
 
