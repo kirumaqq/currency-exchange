@@ -38,7 +38,7 @@ public class CurrencyExchangeController {
     public ResponseEntity<CurrencyResponseDto> createCurrency(CreateCurrencyDto createCurrencyDto,
                                                               UriComponentsBuilder uriBuilder) {
         return ResponseEntity.created(uriBuilder
-                        .path("/currency/{code}")
+                        .path("api/v1/currency/{code}")
                         .build(createCurrencyDto.code()))
                 .body(currencyService.createCurrency(createCurrencyDto));
     }
