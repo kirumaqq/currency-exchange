@@ -1,13 +1,13 @@
 package io.naoki.currencyspring.exchangerate;
 
-import io.naoki.currencyspring.currency.Currency;
+import io.naoki.currencyspring.currency.CurrencyResponseDto;
 
 import java.math.BigDecimal;
 
 public record ExchangeRateResponseDto(
         Integer id,
-        Currency baseCurrency,
-        Currency targetCurrency,
+        CurrencyResponseDto baseCurrency,
+        CurrencyResponseDto targetCurrency,
         BigDecimal rate
 ) {
 }

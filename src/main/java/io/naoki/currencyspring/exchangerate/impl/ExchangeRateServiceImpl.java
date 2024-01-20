@@ -1,9 +1,8 @@
 package io.naoki.currencyspring.exchangerate.impl;
 
-import io.naoki.currencyspring.currency.Currency;
-import io.naoki.currencyspring.currency.CurrencyNotFoundException;
 import io.naoki.currencyspring.currency.CurrencyPair;
-import io.naoki.currencyspring.currency.CurrencyRepository;
+import io.naoki.currencyspring.currency.CurrencyResponseDto;
+import io.naoki.currencyspring.currency.CurrencyService;
 import io.naoki.currencyspring.exchangerate.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -21,7 +20,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
     private final ExchangeRateMapper exchangeRateMapper;
 
-    private final CurrencyRepository currencyRepository;
+    private final CurrencyService currencyService;
 
     @Override
     public List<ExchangeRateResponseDto> getAllExchangeRates() {
@@ -39,10 +38,8 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
     @Override
     public ExchangeRateResponseDto createExchangeRate(CreateExchangeRateDto createExchangeRateDto) {
-        Currency base = currencyRepository.findByCode(createExchangeRateDto.baseCurrencyCode())
-                .orElseThrow(CurrencyNotFoundException::new);
-        Currency target = currencyRepository.findByCode(createExchangeRateDto.targetCurrencyCode())
-                .orElseThrow(CurrencyNotFoundException::new);
+        CurrencyResponseDto base = currencyService.getCurrencyByCode(createExchangeRateDto.baseCurrencyCode());
+        CurrencyResponseDto target = currencyService.getCurrencyByCode(createExchangeRateDto.targetCurrencyCode());
         BigDecimal rate = createExchangeRateDto.rate();
 
         Integer id = exchangeRateRepository.save(base.id(), target.id(), rate);
