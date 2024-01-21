@@ -13,4 +13,9 @@ public record CreateExchangeRateDto(
         @Positive
         BigDecimal rate
 ) {
+        public CreateExchangeRateDto(String baseCurrencyCode, String targetCurrencyCode, BigDecimal rate) {
+                this.baseCurrencyCode = baseCurrencyCode.toUpperCase();
+                this.targetCurrencyCode = targetCurrencyCode.toUpperCase();
+                this.rate = rate;
+        }
 }

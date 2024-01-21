@@ -11,4 +11,9 @@ public record CreateCurrencyDto(
         @Size(min = 1, max = 10, message = "Currency name length must not be less than 1 and greater than 10")
         String sign
 ) {
+        public CreateCurrencyDto(String name, String code, String sign) {
+                this.name = name;
+                this.code = code.toUpperCase();
+                this.sign = sign;
+        }
 }

@@ -40,7 +40,7 @@ public class CurrencyExchangeController {
 
     @GetMapping("/currency/{code}")
     public ResponseEntity<CurrencyResponseDto> getCurrencyByCode(@PathVariable @ISO4217 String code) {
-        return ResponseEntity.ok(currencyService.getCurrencyByCode(code));
+        return ResponseEntity.ok(currencyService.getCurrencyByCode(code.toUpperCase()));
     }
 
 
