@@ -76,7 +76,8 @@ public class CurrencyExchangeController {
 
     @PatchMapping(path = "/exchangeRate/{pair}")
     public ResponseEntity<ExchangeRateResponseDto> editExchangeRate(@PathVariable CurrencyPair pair,
-                                                                    @Positive BigDecimal rate) {
+                                                                    @Positive(message = "Rate must be positive")
+                                                                    BigDecimal rate) {
         return ResponseEntity.ok(exchangeRateService.updateExchangeRate(pair, rate));
     }
 

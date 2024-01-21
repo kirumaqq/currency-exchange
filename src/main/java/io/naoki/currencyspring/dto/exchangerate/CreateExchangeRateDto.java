@@ -10,7 +10,7 @@ public record CreateExchangeRateDto(
         String baseCurrencyCode,
         @ISO4217
         String targetCurrencyCode,
-        @Positive
+        @Positive(message = "Rate must be positive")
         BigDecimal rate
 ) {
         public CreateExchangeRateDto(String baseCurrencyCode, String targetCurrencyCode, BigDecimal rate) {
