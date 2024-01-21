@@ -38,7 +38,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
     @Override
     public ExchangeRateResponseDto getExchangeRateByCodes(String baseCode, String targetCode) {
         ExchangeRate exchangeRate = exchangeRateRepository.findByPairCodes(baseCode, targetCode)
-                .orElseThrow(ResourceNotFoundException::new);
+                .orElseThrow(() -> new ResourceNotFoundException("Exchange rate for this pair wasn't found"));
         return exchangeRateMapper.toResponseDto(exchangeRate);
     }
 
@@ -52,7 +52,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
             Integer id = exchangeRateRepository.save(base.id(), target.id(), rate);
             return new ExchangeRateResponseDto(id, base, target, rate);
         } catch (DuplicateKeyException e) {
-            throw new ResourceAlreadyExistException();
+            throw new ResourceAlreadyExistException("Exchange rate for this currency pair already exist");
         }
     }
 
@@ -60,7 +60,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
     public ExchangeRateResponseDto updateExchangeRate(CurrencyPair pair, BigDecimal rate) {
         ExchangeRate updatedExchangeRate = exchangeRateRepository
                 .updateByPairCodes(pair.baseCurrencyCode(), pair.targetCurrencyCode(), rate)
-                .orElseThrow(ResourceNotFoundException::new);
+                .orElseThrow(() -> new ResourceNotFoundException("Exchange rate for this pair wasn't found"));
         return exchangeRateMapper.toResponseDto(updatedExchangeRate);
     }
 

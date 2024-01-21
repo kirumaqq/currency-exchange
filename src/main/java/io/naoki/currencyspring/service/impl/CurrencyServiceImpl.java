@@ -32,7 +32,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Override
     public CurrencyResponseDto getCurrencyByCode(String code) {
         return currencyMapper.toResponseDto(currencyRepository.findByCode(code)
-                .orElseThrow(ResourceNotFoundException::new));
+                .orElseThrow(() -> new ResourceNotFoundException("Currency with this code wasn't found")));
     }
 
     @Override
@@ -42,7 +42,7 @@ public class CurrencyServiceImpl implements CurrencyService {
             Currency savedCurrency = currencyRepository.save(currency);
             return currencyMapper.toResponseDto(savedCurrency);
         } catch (DbActionExecutionException e) {
-            throw new ResourceAlreadyExistException();
+            throw new ResourceAlreadyExistException("Currency with this code already exist");
         }
     }
 }
