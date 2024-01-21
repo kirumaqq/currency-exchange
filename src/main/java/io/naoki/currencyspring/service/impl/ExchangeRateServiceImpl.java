@@ -5,12 +5,14 @@ import io.naoki.currencyspring.dto.currency.CurrencyResponseDto;
 import io.naoki.currencyspring.dto.exchangerate.CreateExchangeRateDto;
 import io.naoki.currencyspring.dto.exchangerate.ExchangeRateResponseDto;
 import io.naoki.currencyspring.entity.ExchangeRate;
+import io.naoki.currencyspring.exceptions.ResourceAlreadyExistException;
 import io.naoki.currencyspring.exceptions.ResourceNotFoundException;
 import io.naoki.currencyspring.mapper.ExchangeRateMapper;
 import io.naoki.currencyspring.repository.ExchangeRateRepository;
 import io.naoki.currencyspring.service.CurrencyService;
 import io.naoki.currencyspring.service.ExchangeRateService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
@@ -46,8 +48,12 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
         CurrencyResponseDto target = currencyService.getCurrencyByCode(createExchangeRateDto.targetCurrencyCode());
         BigDecimal rate = createExchangeRateDto.rate();
 
-        Integer id = exchangeRateRepository.save(base.id(), target.id(), rate);
-        return new ExchangeRateResponseDto(id, base, target, rate);
+        try {
+            Integer id = exchangeRateRepository.save(base.id(), target.id(), rate);
+            return new ExchangeRateResponseDto(id, base, target, rate);
+        } catch (DuplicateKeyException e) {
+            throw new ResourceAlreadyExistException();
+        }
     }
 
     @Override
