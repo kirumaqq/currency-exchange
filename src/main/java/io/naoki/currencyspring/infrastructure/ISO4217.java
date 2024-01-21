@@ -13,11 +13,11 @@ import java.lang.annotation.Target;
 @Target({ElementType.FIELD, ElementType.PARAMETER})
 @Retention(RetentionPolicy.RUNTIME)
 @Constraint(validatedBy = {})
-@Size(min = 3, max = 3)
-@Pattern(regexp = "\\A\\pL+\\z")
+@Size(min = 3, max = 3, message = "Invalid currency code. Follow ISO 4217 format. Code length must be equal to 3")
+@Pattern(regexp = "\\A\\pL+\\z", message = "Invalid currency code. Follow ISO 4217 format. Code must contain only alphabetic characters")
 public @interface ISO4217 {
 
-    String message() default "Invalid currency code. Follow ISO 4217 format(code length must be equal to 3 and contain alphabetic characters)";
+    String message() default "Invalid currency code. Follow ISO 4217 format.";
 
     Class<?>[] groups() default {};
 
