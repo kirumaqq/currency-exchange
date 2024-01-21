@@ -11,9 +11,7 @@ import io.naoki.currencyspring.repository.ExchangeRateRepository;
 import io.naoki.currencyspring.service.CurrencyService;
 import io.naoki.currencyspring.service.ExchangeRateService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
-import org.springframework.web.ErrorResponseException;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -38,7 +36,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
     @Override
     public ExchangeRateResponseDto getExchangeRateByCodes(String baseCode, String targetCode) {
         ExchangeRate exchangeRate = exchangeRateRepository.findByPairCodes(baseCode, targetCode)
-                .orElseThrow(() -> new ErrorResponseException(HttpStatus.NOT_FOUND));
+                .orElseThrow(ResourceNotFoundException::new);
         return exchangeRateMapper.toResponseDto(exchangeRate);
     }
 
