@@ -70,8 +70,7 @@ public class CurrencyExchangeController {
                                                                       UriComponentsBuilder uriBuilder) {
         return ResponseEntity.created(uriBuilder
                         .path("api/v1/exchangeRate/{codes}")
-                        .build(createExchangeRateDto.baseCurrencyCode()
-                                .concat(createExchangeRateDto.targetCurrencyCode())))
+                        .build(createExchangeRateDto.baseCurrencyCode().concat(createExchangeRateDto.targetCurrencyCode())))
                 .body(exchangeRateService.createExchangeRate(createExchangeRateDto));
     }
 

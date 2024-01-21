@@ -36,6 +36,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Override
     public CurrencyResponseDto createCurrency(CreateCurrencyDto createCurrencyDto) {
         Currency currency = currencyMapper.fromCreateDtoToCurrency(createCurrencyDto);
-        return currencyMapper.toResponseDto(currencyRepository.save(currency));
+        Currency savedCurrency = currencyRepository.save(currency);
+        return currencyMapper.toResponseDto(savedCurrency);
     }
 }

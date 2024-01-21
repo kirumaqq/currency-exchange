@@ -52,8 +52,9 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
 
     @Override
     public ExchangeRateResponseDto updateExchangeRate(CurrencyPair pair, BigDecimal rate) {
-        ExchangeRate updatedExchangeRate = exchangeRateRepository.updateByPairCodes(pair.baseCurrencyCode(),
-                pair.targetCurrencyCode(), rate).orElseThrow(ResourceNotFoundException::new);
+        ExchangeRate updatedExchangeRate = exchangeRateRepository
+                .updateByPairCodes(pair.baseCurrencyCode(), pair.targetCurrencyCode(), rate)
+                .orElseThrow(ResourceNotFoundException::new);
         return exchangeRateMapper.toResponseDto(updatedExchangeRate);
     }
 
