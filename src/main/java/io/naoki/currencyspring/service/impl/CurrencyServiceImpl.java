@@ -3,6 +3,7 @@ package io.naoki.currencyspring.service.impl;
 import io.naoki.currencyspring.dto.currency.CreateCurrencyDto;
 import io.naoki.currencyspring.dto.currency.CurrencyResponseDto;
 import io.naoki.currencyspring.entity.Currency;
+import io.naoki.currencyspring.exceptions.ResourceNotFoundException;
 import io.naoki.currencyspring.mapper.CurrencyMapper;
 import io.naoki.currencyspring.repository.CurrencyRepository;
 import io.naoki.currencyspring.service.CurrencyService;
@@ -17,7 +18,6 @@ public class CurrencyServiceImpl implements CurrencyService {
 
     private final CurrencyRepository currencyRepository;
 
-
     private final CurrencyMapper currencyMapper;
 
     @Override
@@ -30,7 +30,7 @@ public class CurrencyServiceImpl implements CurrencyService {
     @Override
     public CurrencyResponseDto getCurrencyByCode(String code) {
         return currencyMapper.toResponseDto(currencyRepository.findByCode(code)
-                .orElseThrow(CurrencyNotFoundException::new));
+                .orElseThrow(ResourceNotFoundException::new));
     }
 
     @Override

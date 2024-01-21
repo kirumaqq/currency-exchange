@@ -5,6 +5,7 @@ import io.naoki.currencyspring.dto.currency.CurrencyResponseDto;
 import io.naoki.currencyspring.dto.exchangerate.CreateExchangeRateDto;
 import io.naoki.currencyspring.dto.exchangerate.ExchangeRateResponseDto;
 import io.naoki.currencyspring.entity.ExchangeRate;
+import io.naoki.currencyspring.exceptions.ResourceNotFoundException;
 import io.naoki.currencyspring.mapper.ExchangeRateMapper;
 import io.naoki.currencyspring.repository.ExchangeRateRepository;
 import io.naoki.currencyspring.service.CurrencyService;
@@ -54,7 +55,7 @@ public class ExchangeRateServiceImpl implements ExchangeRateService {
     @Override
     public ExchangeRateResponseDto updateExchangeRate(CurrencyPair pair, BigDecimal rate) {
         ExchangeRate updatedExchangeRate = exchangeRateRepository.updateByPairCodes(pair.baseCurrencyCode(),
-                pair.targetCurrencyCode(), rate).orElseThrow(ExchangeRateNotFoundException::new);
+                pair.targetCurrencyCode(), rate).orElseThrow(ResourceNotFoundException::new);
         return exchangeRateMapper.toResponseDto(updatedExchangeRate);
     }
 
