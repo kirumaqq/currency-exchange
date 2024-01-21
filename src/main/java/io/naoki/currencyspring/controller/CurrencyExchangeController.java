@@ -5,11 +5,14 @@ import io.naoki.currencyspring.dto.currency.CurrencyPair;
 import io.naoki.currencyspring.dto.currency.CurrencyResponseDto;
 import io.naoki.currencyspring.dto.exchangerate.CreateExchangeRateDto;
 import io.naoki.currencyspring.dto.exchangerate.ExchangeRateResponseDto;
+import io.naoki.currencyspring.infrastructure.ISO4217;
 import io.naoki.currencyspring.service.CurrencyService;
 import io.naoki.currencyspring.service.ExchangeRateService;
+import jakarta.validation.constraints.Positive;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -36,13 +39,13 @@ public class CurrencyExchangeController {
     }
 
     @GetMapping("/currency/{code}")
-    public ResponseEntity<CurrencyResponseDto> getCurrencyByCode(@PathVariable String code) {
-        return ResponseEntity.ok(currencyService.getCurrencyByCode(code));
+    public ResponseEntity<CurrencyResponseDto> getCurrencyByCode(@PathVariable @ISO4217 String code) {
+        return ResponseEntity.ok(currencyService.getCurrencyByCode(code.toUpperCase()));
     }
 
 
     @PostMapping(path = "/currencies", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<CurrencyResponseDto> createCurrency(CreateCurrencyDto createCurrencyDto,
+    public ResponseEntity<CurrencyResponseDto> createCurrency(@Validated CreateCurrencyDto createCurrencyDto,
                                                               UriComponentsBuilder uriBuilder) {
         return ResponseEntity.created(uriBuilder
                         .path("api/v1/currency/{code}")
@@ -63,17 +66,17 @@ public class CurrencyExchangeController {
     }
 
     @PostMapping(path = "/exchangeRates", consumes = MediaType.APPLICATION_FORM_URLENCODED_VALUE)
-    public ResponseEntity<ExchangeRateResponseDto> createExchangeRate(CreateExchangeRateDto createExchangeRateDto,
+    public ResponseEntity<ExchangeRateResponseDto> createExchangeRate(@Validated CreateExchangeRateDto createExchangeRateDto,
                                                                       UriComponentsBuilder uriBuilder) {
         return ResponseEntity.created(uriBuilder
                         .path("api/v1/exchangeRate/{codes}")
-                        .build(createExchangeRateDto.baseCurrencyCode()
-                                .concat(createExchangeRateDto.targetCurrencyCode())))
+                        .build(createExchangeRateDto.baseCurrencyCode().concat(createExchangeRateDto.targetCurrencyCode())))
                 .body(exchangeRateService.createExchangeRate(createExchangeRateDto));
     }
 
     @PatchMapping(path = "/exchangeRate/{pair}")
     public ResponseEntity<ExchangeRateResponseDto> editExchangeRate(@PathVariable CurrencyPair pair,
+                                                                    @Positive(message = "Rate must be positive")
                                                                     BigDecimal rate) {
         return ResponseEntity.ok(exchangeRateService.updateExchangeRate(pair, rate));
     }
