@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @Transactional
@@ -89,6 +90,20 @@ class ExchangeRateRepositoryIT {
         Optional<ExchangeRate> exchangeRateOpt = exchangeRateRepository.updateByPairCodes("AAA", "BBB", BigDecimal.ONE);
 
         assertThat(exchangeRateOpt).isEmpty();
+    }
+
+    @Test
+    void findByPairCodesBidirectional_ReversedCodePair_ReturnsSameExchangeRate() {
+        saveExchangeRate();
+
+        var exchangeRateOpt1 = exchangeRateRepository.findByPairCodesBidirectional("AAA", "BBB");
+        var exchangeRateOpt2 = exchangeRateRepository.findByPairCodesBidirectional("BBB", "AAA");
+
+        assertAll(() -> {
+            assertThat(exchangeRateOpt1).isNotEmpty();
+            assertThat(exchangeRateOpt2).isNotEmpty();
+        });
+        assertThat(exchangeRateOpt1.get()).isEqualTo(exchangeRateOpt2.get());
     }
 
     Currency saveCurrency(String currencyCode) {
