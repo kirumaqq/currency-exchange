@@ -85,7 +85,7 @@ class ExchangeRateRepositoryIT {
     }
 
     @Test
-    void updateByPairCodes_InvalidPair_returnsEmptyOptional() {
+    void updateByPairCodes_InvalidPair_ReturnsEmptyOptional() {
         Optional<ExchangeRate> exchangeRateOpt = exchangeRateRepository.updateByPairCodes("AAA", "BBB", BigDecimal.ONE);
 
         assertThat(exchangeRateOpt).isEmpty();
