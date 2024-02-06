@@ -11,7 +11,7 @@ import java.util.Optional;
 
 public abstract class CurrencyConversionStrategy implements ConversionStrategy {
 
-    private final ExchangeRateRepository exchangeRateRepository;
+    protected final ExchangeRateRepository exchangeRateRepository;
 
     protected CurrencyConversionStrategy(ExchangeRateRepository exchangeRateRepository) {
         this.exchangeRateRepository = exchangeRateRepository;
