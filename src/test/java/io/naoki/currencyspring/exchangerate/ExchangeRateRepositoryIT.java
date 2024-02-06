@@ -106,6 +106,48 @@ class ExchangeRateRepositoryIT {
         assertThat(exchangeRateOpt1.get()).isEqualTo(exchangeRateOpt2.get());
     }
 
+
+    @Test
+    void findAllPairsCodesByBaseCode_OneValidPair_ReturnsSingletonList() {
+        Currency main = new Currency(null, "AAA", "name1", "A");
+        Currency targetPair = new Currency(null, "BBB", "name2", "B");
+        Currency basePair = new Currency(null, "CCC", "name3", "C");
+        Integer mainId = currencyRepository.save(main).id();
+        Integer targetId = currencyRepository.save(targetPair).id();
+        Integer baseId = currencyRepository.save(basePair).id();
+
+        exchangeRateRepository.save(mainId, targetId, BigDecimal.ONE);
+        exchangeRateRepository.save(baseId, mainId, BigDecimal.ONE);
+
+        var targetPairs = exchangeRateRepository.findAllPairsCodesByBaseCode(main.code());
+
+        assertAll(() -> {
+            assertThat(targetPairs).hasSize(1);
+            assertThat(targetPairs.get(0)).isEqualTo(targetPair.code());
+        });
+    }
+
+    @Test
+    void findAllPairsCodesByTargetCode_OneValidPair_ReturnsSingletonList() {
+        Currency main = new Currency(null, "AAA", "name1", "A");
+        Currency targetPair = new Currency(null, "BBB", "name2", "B");
+        Currency basePair = new Currency(null, "CCC", "name3", "C");
+        Integer mainId = currencyRepository.save(main).id();
+        Integer targetId = currencyRepository.save(targetPair).id();
+        Integer baseId = currencyRepository.save(basePair).id();
+
+        exchangeRateRepository.save(mainId, targetId, BigDecimal.ONE);
+        exchangeRateRepository.save(baseId, mainId, BigDecimal.ONE);
+
+        var basePairs = exchangeRateRepository.findAllPairsCodesByTargetCode(main.code());
+
+        assertAll(() -> {
+            assertThat(basePairs).hasSize(1);
+            assertThat(basePairs.get(0)).isEqualTo(basePair.code());
+        });
+    }
+
+
     Currency saveCurrency(String currencyCode) {
         return currencyRepository.save(new Currency(null, currencyCode, "name", "s"));
     }

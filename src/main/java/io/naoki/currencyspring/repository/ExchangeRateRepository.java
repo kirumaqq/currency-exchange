@@ -78,4 +78,23 @@ public interface ExchangeRateRepository extends Repository<ExchangeRate, Integer
                 base.code = :code2 AND target.code = :code1;
             """, rowMapperClass = ExchangeRateRowMapper.class)
     Optional<ExchangeRate> findByPairCodesBidirectional(String code1, String code2);
+
+
+    @Query(value = """
+            SELECT target.code
+            FROM exchange_rates er
+                     JOIN public.currencies base on base.id = er.base_currency_id
+                     JOIN public.currencies target on target.id = er.target_currency_id
+            WHERE base.code = :code
+            """)
+    List<String> findAllPairsCodesByBaseCode(String code);
+
+    @Query(value = """
+            SELECT base.code
+            FROM exchange_rates er
+                     JOIN public.currencies base on base.id = er.base_currency_id
+                     JOIN public.currencies target on target.id = er.target_currency_id
+            WHERE target.code = :code ;
+            """)
+    List<String> findAllPairsCodesByTargetCode(String code);
 }
