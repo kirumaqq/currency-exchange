@@ -30,7 +30,7 @@ class CurrencyConversionStrategyTest {
     void setUp() {
         conversionStrategy = new CurrencyConversionStrategy(exchangeRateRepository) {
             @Override
-            protected String getCommonCurrencyCode() {
+            protected String getCommonCurrencyCode(String code1, String code2) {
                 return COMMON;
             }
         };

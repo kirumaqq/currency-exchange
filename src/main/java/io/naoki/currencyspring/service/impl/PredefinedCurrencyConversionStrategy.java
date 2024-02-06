@@ -20,7 +20,7 @@ public class PredefinedCurrencyConversionStrategy extends CurrencyConversionStra
     }
 
     @Override
-    protected String getCommonCurrencyCode() {
+    protected String getCommonCurrencyCode(String code1, String code2) {
         return commonCurrencyCode;
     }
 
