@@ -20,7 +20,9 @@ public abstract class CurrencyConversionStrategy implements ConversionStrategy {
     @Override
     public Optional<ExchangeRate> convert(String from, String to) {
         String commonCurrencyCode = getCommonCurrencyCode(from, to);
-
+        if (commonCurrencyCode == null || commonCurrencyCode.isBlank()) {
+            return Optional.empty();
+        }
         var exchangeRateBaseOpt = exchangeRateRepository
                 .findByPairCodesBidirectional(from, commonCurrencyCode);
 
