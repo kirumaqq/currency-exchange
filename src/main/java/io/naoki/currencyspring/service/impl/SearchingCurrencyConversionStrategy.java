@@ -1,11 +1,13 @@
 package io.naoki.currencyspring.service.impl;
 
 import io.naoki.currencyspring.repository.ExchangeRateRepository;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
 
+@Order(3)
 @Service
 public class SearchingCurrencyConversionStrategy extends CurrencyConversionStrategy {
 
