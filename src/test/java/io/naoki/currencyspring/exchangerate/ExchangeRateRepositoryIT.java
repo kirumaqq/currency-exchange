@@ -18,6 +18,7 @@ import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.within;
+import static org.junit.jupiter.api.Assertions.assertAll;
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 
 @Transactional
@@ -85,11 +86,67 @@ class ExchangeRateRepositoryIT {
     }
 
     @Test
-    void updateByPairCodes_InvalidPair_returnsEmptyOptional() {
+    void updateByPairCodes_InvalidPair_ReturnsEmptyOptional() {
         Optional<ExchangeRate> exchangeRateOpt = exchangeRateRepository.updateByPairCodes("AAA", "BBB", BigDecimal.ONE);
 
         assertThat(exchangeRateOpt).isEmpty();
     }
+
+    @Test
+    void findByPairCodesBidirectional_ReversedCodePair_ReturnsSameExchangeRate() {
+        saveExchangeRate();
+
+        var exchangeRateOpt1 = exchangeRateRepository.findByPairCodesBidirectional("AAA", "BBB");
+        var exchangeRateOpt2 = exchangeRateRepository.findByPairCodesBidirectional("BBB", "AAA");
+
+        assertAll(() -> {
+            assertThat(exchangeRateOpt1).isNotEmpty();
+            assertThat(exchangeRateOpt2).isNotEmpty();
+        });
+        assertThat(exchangeRateOpt1.get()).isEqualTo(exchangeRateOpt2.get());
+    }
+
+
+    @Test
+    void findAllPairsCodesByBaseCode_OneValidPair_ReturnsSingletonList() {
+        Currency main = new Currency(null, "AAA", "name1", "A");
+        Currency targetPair = new Currency(null, "BBB", "name2", "B");
+        Currency basePair = new Currency(null, "CCC", "name3", "C");
+        Integer mainId = currencyRepository.save(main).id();
+        Integer targetId = currencyRepository.save(targetPair).id();
+        Integer baseId = currencyRepository.save(basePair).id();
+
+        exchangeRateRepository.save(mainId, targetId, BigDecimal.ONE);
+        exchangeRateRepository.save(baseId, mainId, BigDecimal.ONE);
+
+        var targetPairs = exchangeRateRepository.findAllPairsCodesByBaseCode(main.code());
+
+        assertAll(() -> {
+            assertThat(targetPairs).hasSize(1);
+            assertThat(targetPairs.get(0)).isEqualTo(targetPair.code());
+        });
+    }
+
+    @Test
+    void findAllPairsCodesByTargetCode_OneValidPair_ReturnsSingletonList() {
+        Currency main = new Currency(null, "AAA", "name1", "A");
+        Currency targetPair = new Currency(null, "BBB", "name2", "B");
+        Currency basePair = new Currency(null, "CCC", "name3", "C");
+        Integer mainId = currencyRepository.save(main).id();
+        Integer targetId = currencyRepository.save(targetPair).id();
+        Integer baseId = currencyRepository.save(basePair).id();
+
+        exchangeRateRepository.save(mainId, targetId, BigDecimal.ONE);
+        exchangeRateRepository.save(baseId, mainId, BigDecimal.ONE);
+
+        var basePairs = exchangeRateRepository.findAllPairsCodesByTargetCode(main.code());
+
+        assertAll(() -> {
+            assertThat(basePairs).hasSize(1);
+            assertThat(basePairs.get(0)).isEqualTo(basePair.code());
+        });
+    }
+
 
     Currency saveCurrency(String currencyCode) {
         return currencyRepository.save(new Currency(null, currencyCode, "name", "s"));
