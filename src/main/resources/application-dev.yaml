@@ -1,5 +1,5 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:5433/currency-exchange
+    url: jdbc:postgresql://localhost:5432/currency-exchange
     username: postgres
-    password: 123
+    password: postgres
