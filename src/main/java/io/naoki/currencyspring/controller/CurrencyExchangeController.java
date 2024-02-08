@@ -1,11 +1,14 @@
 package io.naoki.currencyspring.controller;
 
+import io.naoki.currencyspring.dto.conversion.ConversionRequest;
+import io.naoki.currencyspring.dto.conversion.ConversionResponse;
 import io.naoki.currencyspring.dto.currency.CreateCurrencyDto;
 import io.naoki.currencyspring.dto.currency.CurrencyPair;
 import io.naoki.currencyspring.dto.currency.CurrencyResponseDto;
 import io.naoki.currencyspring.dto.exchangerate.CreateExchangeRateDto;
 import io.naoki.currencyspring.dto.exchangerate.ExchangeRateResponseDto;
 import io.naoki.currencyspring.infrastructure.ISO4217;
+import io.naoki.currencyspring.service.ConversionService;
 import io.naoki.currencyspring.service.CurrencyService;
 import io.naoki.currencyspring.service.ExchangeRateService;
 import jakarta.validation.constraints.Positive;
@@ -27,6 +30,8 @@ public class CurrencyExchangeController {
     private final CurrencyService currencyService;
 
     private final ExchangeRateService exchangeRateService;
+
+    private final ConversionService conversionService;
 
     @GetMapping("/is-alive")
     public String isAlive() {
@@ -81,4 +86,10 @@ public class CurrencyExchangeController {
         return ResponseEntity.ok(exchangeRateService.updateExchangeRate(pair, rate));
     }
 
+    @GetMapping(path = "/exchange")
+    public ResponseEntity<ConversionResponse> getConvertedAmount(@Validated ConversionRequest conversionRequest) {
+
+        ConversionResponse conversionResponse = conversionService.convertCurrencyAmount(conversionRequest);
+        return ResponseEntity.ok(conversionResponse);
+    }
 }
