@@ -1,0 +1,19 @@
+name: currency-exchange
+version: 0.1.0
+
+services:
+  rest-api:
+    build:
+      context: ../
+    ports:
+      - 8080:8080
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://pg_db_15:5432/currency-exchange
+
+  pg_db_15:
+    image: postgres:15
+    restart: always
+    environment:
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_DB=currency-exchange
