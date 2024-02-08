@@ -13,4 +13,10 @@ public record ConversionRequest(
         @Positive
         BigDecimal amount
 ) {
+
+        public ConversionRequest(String from, String to, BigDecimal amount) {
+                this.from = from.toUpperCase();
+                this.to = to.toUpperCase();
+                this.amount = amount;
+        }
 }

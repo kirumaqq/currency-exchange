@@ -8,4 +8,9 @@ public record CurrencyPair(
         @ISO4217
         String targetCurrencyCode
 ) {
+
+    public CurrencyPair(String baseCurrencyCode, String targetCurrencyCode) {
+        this.baseCurrencyCode = baseCurrencyCode.toUpperCase();
+        this.targetCurrencyCode = targetCurrencyCode.toUpperCase();
+    }
 }
